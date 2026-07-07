@@ -1,0 +1,135 @@
+/* ── Command Bar ────────────────────────────────────────────── */
+
+.commandbar {
+  height: var(--commandbar-height);
+  min-height: var(--commandbar-height);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.commandbar-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  min-width: 160px;
+}
+
+.commandbar-app {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+}
+
+.commandbar-sep {
+  font-size: var(--text-xs);
+}
+
+.commandbar-module {
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  color: var(--text);
+}
+
+/* Search trigger */
+.commandbar-search {
+  flex: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--space-2) var(--space-3);
+  color: var(--muted-2);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.commandbar-search:hover {
+  border-color: var(--border-2);
+  color: var(--muted);
+}
+
+.commandbar-search span {
+  flex: 1;
+  text-align: left;
+}
+
+.commandbar-kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted-2);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 0 5px;
+  line-height: 1.8;
+}
+
+/* Right section */
+.commandbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-left: auto;
+}
+
+.commandbar-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.commandbar-stat-label {
+  font-size: 10px;
+  color: var(--muted-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.commandbar-stat-value {
+  font-size: var(--text-xs);
+  color: var(--text);
+}
+
+.commandbar-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+}
+
+.commandbar-time {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1px;
+}
+
+.commandbar-date {
+  font-size: 10px;
+  color: var(--muted-2);
+}
+
+.commandbar-clock {
+  font-size: var(--text-xs);
+  color: var(--text);
+  letter-spacing: 0.05em;
+}
+
+.commandbar-settings {
+  color: var(--muted-2);
+  margin-left: var(--space-1);
+}
+
+.commandbar-settings:hover {
+  color: var(--text);
+}
