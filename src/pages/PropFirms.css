@@ -1,0 +1,85 @@
+/* ── Prop Firms ─────────────────────────────────────────────── */
+
+.propfirms-page {
+  padding: var(--space-6);
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+/* Firm Card */
+.pf-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+.pf-card:hover { border-color: var(--border-2); }
+.pf-card--expanded { border-color: var(--border-2); }
+.pf-card--funded { border-color: var(--primary-dim); }
+
+.pf-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  gap: var(--space-3);
+}
+.pf-card-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+}
+.pf-firm-initial {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--border-radius);
+  background: var(--surface-2);
+  border: 1px solid var(--border-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-md);
+  font-weight: var(--weight-semi);
+  color: var(--text);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+.pf-firm-name { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--text); }
+.pf-firm-sub { font-size: var(--text-xs); margin-top: 2px; }
+.pf-card-right { display: flex; align-items: center; gap: var(--space-3); flex-shrink: 0; }
+.pf-mini-stats {}
+
+/* Body */
+.pf-card-body {
+  border-top: 1px solid var(--border);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Stats grid */
+.pf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-3);
+}
+.pf-stat {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  padding: var(--space-3);
+}
+.pf-stat-icon { color: var(--muted-2); margin-top: 2px; flex-shrink: 0; }
+.pf-stat-body { flex: 1; min-width: 0; }
+.pf-stat-val { font-size: var(--text-sm); font-weight: var(--weight-medium); line-height: 1.3; }
+.pf-stat-label { font-size: 10px; color: var(--muted-2); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; }

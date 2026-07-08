@@ -3,9 +3,10 @@
 // ============================================================
 
 import React from 'react'
-import { Search, Settings } from 'lucide-react'
+import { Search, Settings, Cloud, CloudOff, RefreshCw } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { useProfile } from '@/db/hooks'
+import { useSyncStore } from '@/db/sync'
 import { formatHours } from '@/engine/xp'
 import { NAV_MODULES } from '@/data/mission'
 import './CommandBar.css'
@@ -34,6 +35,7 @@ export function CommandBar({ onSearchClick }: CommandBarProps) {
   const profile = useProfile()
   const mod = useCurrentModule()
   const now = useClock()
+  const { isSyncing, error: syncError } = useSyncStore()
 
   const deepWorkH = formatHours(profile?.deepWorkMinutesToday ?? 0)
 
@@ -74,6 +76,15 @@ export function CommandBar({ onSearchClick }: CommandBarProps) {
           <span className="commandbar-stat-value mono">{deepWorkH}</span>
         </div>
         <div className="commandbar-divider" />
+        <div className="commandbar-sync" title={syncError ? `Sync Error: ${syncError}` : (isSyncing ? 'Syncing...' : 'Synced')}>
+          {isSyncing ? (
+            <RefreshCw size={13} className="sync-spin" />
+          ) : syncError ? (
+            <CloudOff size={13} className="status-red" />
+          ) : (
+            <Cloud size={13} className="muted" />
+          )}
+        </div>
         <div className="commandbar-time mono">
           <span className="commandbar-date muted">{dateStr}</span>
           <span className="commandbar-clock">{timeStr}</span>

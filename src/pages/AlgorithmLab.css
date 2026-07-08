@@ -1,0 +1,61 @@
+/* ── Algorithm Lab ──────────────────────────────────────────── */
+
+.lab-page {
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.lab-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+.lab-sidebar {}
+.lab-main {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+/* Experiment Card */
+.exp-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: border-color var(--transition-fast);
+}
+.exp-card:hover { border-color: var(--border-2); }
+.exp-card--expanded { border-color: var(--border-2); }
+.exp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  cursor: pointer;
+  gap: var(--space-3);
+}
+.exp-card-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex: 1;
+  min-width: 0;
+}
+.exp-card-name { font-size: var(--text-sm); font-weight: var(--weight-medium); color: var(--text); }
+.exp-card-obj { font-size: var(--text-xs); margin-top: 2px; }
+.exp-card-right { display: flex; align-items: center; gap: var(--space-2); flex-shrink: 0; }
+.exp-card-body {
+  border-top: 1px solid var(--border);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.exp-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}

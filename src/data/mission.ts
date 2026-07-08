@@ -163,3 +163,21 @@ export const LAB_SECTIONS = [
   'Broker Rules',
   'Market Regimes',
 ]
+
+// ── Prop Firm Data ────────────────────────────────────────────
+export const PROP_FIRM_STATUSES = [
+  'researching',
+  'attempting',
+  'passed',
+  'funded',
+  'failed',
+  'withdrawn',
+] as const
+
+export const PROP_FIRM_PROVIDERS = [
+  'FTMO', 'MyForexFunds', 'The Funded Trader', 'Apex Trader Funding',
+  'Earn2Trade', 'TopstepTrader', 'SurgeTrader', '5%ers', 'True Forex Funds',
+  'E8 Funding', 'MyFundedFx', 'Alpha Capital Group', 'Fidelcrest',
+  'Ment Funding', 'City Traders Imperium', 'Instant Funding',
+]
+

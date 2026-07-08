@@ -10,6 +10,7 @@ import { StrategyStage } from '@/data/mission'
 
 export interface Profile {
   id?: number
+  uuid?: string
   totalXP: number
   currentStreak: number
   longestStreak: number
@@ -32,6 +33,7 @@ export interface Profile {
 
 export interface XPLog {
   id?: number
+  uuid?: string
   event: XPEventType
   amount: number
   description: string
@@ -41,6 +43,7 @@ export interface XPLog {
 
 export interface JournalEntry {
   id?: number
+  uuid?: string
   date: string // YYYY-MM-DD
   morningPlan: string
   deepWorkLog: string
@@ -62,6 +65,7 @@ export interface JournalEntry {
 
 export interface Note {
   id?: number
+  uuid?: string
   title: string
   content: string
   folder: string
@@ -76,6 +80,7 @@ export interface Note {
 
 export interface Strategy {
   id?: number
+  uuid?: string
   name: string
   version: number
   stage: StrategyStage
@@ -103,6 +108,7 @@ export interface Strategy {
 
 export interface ResearchPaper {
   id?: number
+  uuid?: string
   title: string
   authors: string[]
   year: number
@@ -121,6 +127,7 @@ export interface ResearchPaper {
 
 export interface Experiment {
   id?: number
+  uuid?: string
   name: string
   section: string
   objective: string
@@ -136,29 +143,28 @@ export interface Experiment {
 
 export interface PropFirm {
   id?: number
-  name: string
+  uuid?: string
+  firmName: string
   accountSize: number
-  maxDailyDrawdown: number
-  maxOverallDrawdown: number
-  profitTarget: number
+  challengeFee: number
+  profitTarget: number        // %
+  maxDailyLoss: number        // %
+  maxTotalLoss: number        // %
   minTradingDays: number
-  newsRestrictions: boolean
-  newsDetails: string
-  scalingRules: string
-  challengeProgress: number // 0-100
-  currentProfit: number
-  currentDrawdown: number
-  status: 'evaluating' | 'passed' | 'failed' | 'funded' | 'inactive'
+  status: 'researching' | 'attempting' | 'passed' | 'funded' | 'failed' | 'withdrawn'
+  phase: 1 | 2 | 3
+  attempts: number
   notes: string
-  journal: string
+  website: string
   startDate: string | null
-  endDate: string | null
+  passDate: string | null
   createdAt: string
   updatedAt: string
 }
 
 export interface CertProgress {
   id?: number
+  uuid?: string
   certId: string
   studyHours: number
   completionPercent: number
@@ -172,6 +178,7 @@ export interface CertProgress {
 
 export interface CalendarEvent {
   id?: number
+  uuid?: string
   title: string
   description: string
   startTime: string
@@ -182,6 +189,13 @@ export interface CalendarEvent {
   externalId: string | null // for Google Calendar sync
   createdAt: string
   updatedAt: string
+}
+
+export interface Tombstone {
+  id?: number
+  uuid: string
+  collection: string
+  deletedAt: string
 }
 
 // ── Database Class ─────────────────────────────────────────────
@@ -197,6 +211,7 @@ class TerminalDB extends Dexie {
   propFirms!: Table<PropFirm>
   certProgress!: Table<CertProgress>
   calendarEvents!: Table<CalendarEvent>
+  tombstones!: Table<Tombstone>
 
   constructor() {
     super('TerminalDB')
@@ -213,10 +228,65 @@ class TerminalDB extends Dexie {
       certProgress:   '++id, certId, isCompleted',
       calendarEvents: '++id, startTime, category',
     })
+
+    // Version 2: PropFirm schema overhaul (new fields)
+    this.version(2).stores({
+      propFirms: '++id, firmName, status, updatedAt',
+    })
+
+    // Version 3: Sync infrastructure (uuid, tombstones)
+    this.version(3).stores({
+      profiles: '++id, uuid',
+      xpLog: '++id, uuid, event, date',
+      journalEntries: '++id, uuid, date',
+      notes: '++id, uuid, folder, *tags, isFavorite, updatedAt',
+      strategies: '++id, uuid, stage, priority, isActive, updatedAt',
+      researchPapers: '++id, uuid, status, isFavorite, year, *tags, updatedAt',
+      experiments: '++id, uuid, section, status, updatedAt',
+      propFirms: '++id, uuid, firmName, status, updatedAt',
+      certProgress: '++id, uuid, certId, isCompleted',
+      calendarEvents: '++id, uuid, startTime, category',
+      tombstones: '++id, uuid, collection',
+    })
   }
 }
 
 export const db = new TerminalDB()
+
+// Add hooks to auto-generate UUIDs and track deletes
+const tablesToSync = [
+  'profiles', 'xpLog', 'journalEntries', 'notes', 'strategies',
+  'researchPapers', 'experiments', 'propFirms', 'certProgress', 'calendarEvents'
+]
+
+tablesToSync.forEach(tableName => {
+  const table = db.table(tableName)
+  
+  // On create, ensure UUID exists
+  table.hook('creating', function (primKey, obj, trans) {
+    if (!obj.uuid) obj.uuid = crypto.randomUUID()
+    if (!obj.updatedAt && tableName !== 'xpLog') obj.updatedAt = new Date().toISOString()
+  })
+
+  // On update, auto-bump updatedAt unless provided (e.g. from sync)
+  table.hook('updating', function (modifications: any, primKey, obj, trans) {
+    if (tableName !== 'xpLog') {
+      if (modifications.updatedAt !== undefined) return modifications
+      return { ...modifications, updatedAt: new Date().toISOString() }
+    }
+  })
+
+  // On delete, record tombstone
+  table.hook('deleting', function (primKey, obj, trans) {
+    if (obj.uuid) {
+      db.tombstones.add({
+        uuid: obj.uuid,
+        collection: tableName,
+        deletedAt: new Date().toISOString()
+      })
+    }
+  })
+})
 
 // ── Default Profile ────────────────────────────────────────────
 
