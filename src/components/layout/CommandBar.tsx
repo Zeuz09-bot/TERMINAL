@@ -4,7 +4,7 @@
 
 import React from 'react'
 import { Search, Settings, Cloud, CloudOff, RefreshCw, Menu } from 'lucide-react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import { useProfile } from '@/db/hooks'
 import { useSyncStore } from '@/db/sync'
 import { formatHours } from '@/engine/xp'
@@ -95,9 +95,9 @@ export function CommandBar({ onSearchClick, onMenuClick }: CommandBarProps) {
           <span className="commandbar-date muted">{dateStr}</span>
           <span className="commandbar-clock">{timeStr}</span>
         </div>
-        <button className="btn btn-icon btn-ghost commandbar-settings">
+        <Link to="/settings" className="btn btn-icon btn-ghost commandbar-settings" aria-label="Settings">
           <Settings size={14} />
-        </button>
+        </Link>
       </div>
     </header>
   )
