@@ -8,8 +8,15 @@
   display: flex;
   align-items: center;
   padding: 0 var(--space-4);
-  gap: var(--space-4);
+  gap: var(--space-3);
   flex-shrink: 0;
+}
+
+/* Hamburger — hidden on desktop, visible on mobile */
+.commandbar-hamburger {
+  display: none;
+  flex-shrink: 0;
+  color: var(--muted);
 }
 
 .commandbar-breadcrumb {
@@ -17,7 +24,10 @@
   align-items: center;
   gap: var(--space-2);
   font-size: var(--text-sm);
-  min-width: 160px;
+  min-width: 0;
+  flex-shrink: 1;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .commandbar-app {
@@ -33,6 +43,8 @@
   font-size: var(--text-sm);
   font-weight: var(--weight-medium);
   color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Search trigger */
@@ -51,6 +63,7 @@
   font-size: var(--text-sm);
   cursor: pointer;
   transition: border-color var(--transition-fast), color var(--transition-fast);
+  min-width: 0;
 }
 
 .commandbar-search:hover {
@@ -61,6 +74,9 @@
 .commandbar-search span {
   flex: 1;
   text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .commandbar-kbd {
@@ -72,6 +88,7 @@
   border-radius: 2px;
   padding: 0 5px;
   line-height: 1.8;
+  flex-shrink: 0;
 }
 
 /* Right section */
@@ -80,6 +97,7 @@
   align-items: center;
   gap: var(--space-3);
   margin-left: auto;
+  flex-shrink: 0;
 }
 
 .commandbar-stat {
@@ -132,4 +150,52 @@
 
 .commandbar-settings:hover {
   color: var(--text);
+}
+
+.commandbar-sync {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.sync-spin {
+  animation: spin 2s linear infinite;
+  color: var(--primary);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ── Mobile Responsive ────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .commandbar {
+    padding: 0 var(--space-3);
+    gap: var(--space-2);
+  }
+
+  .commandbar-hamburger {
+    display: flex;
+  }
+
+  /* Hide breadcrumb on mobile to save space */
+  .commandbar-breadcrumb {
+    display: none;
+  }
+
+  /* Hide stats and clock on mobile */
+  .commandbar-stat,
+  .commandbar-divider,
+  .commandbar-time,
+  .commandbar-kbd {
+    display: none;
+  }
+
+  .commandbar-search {
+    margin: 0;
+    max-width: none;
+  }
 }

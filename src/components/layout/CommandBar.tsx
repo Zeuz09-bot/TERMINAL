@@ -3,7 +3,7 @@
 // ============================================================
 
 import React from 'react'
-import { Search, Settings, Cloud, CloudOff, RefreshCw } from 'lucide-react'
+import { Search, Settings, Cloud, CloudOff, RefreshCw, Menu } from 'lucide-react'
 import { useLocation } from 'react-router-dom'
 import { useProfile } from '@/db/hooks'
 import { useSyncStore } from '@/db/sync'
@@ -29,9 +29,10 @@ function useClock() {
 
 interface CommandBarProps {
   onSearchClick: () => void
+  onMenuClick?: () => void
 }
 
-export function CommandBar({ onSearchClick }: CommandBarProps) {
+export function CommandBar({ onSearchClick, onMenuClick }: CommandBarProps) {
   const profile = useProfile()
   const mod = useCurrentModule()
   const now = useClock()
@@ -55,6 +56,11 @@ export function CommandBar({ onSearchClick }: CommandBarProps) {
 
   return (
     <header className="commandbar">
+      {/* Hamburger — mobile only */}
+      <button className="commandbar-hamburger btn btn-icon btn-ghost" onClick={onMenuClick} aria-label="Open menu">
+        <Menu size={18} />
+      </button>
+
       {/* Left: breadcrumb */}
       <div className="commandbar-breadcrumb">
         <span className="commandbar-app mono muted">TERMINAL</span>

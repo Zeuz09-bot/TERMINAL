@@ -172,3 +172,36 @@
 }
 .multi-tag:hover { border-color: var(--border-2); color: var(--text); }
 .multi-tag--active { border-color: var(--primary-dim); color: var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); }
+
+/* ── Mobile Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .alpha-page { padding: var(--space-3); gap: var(--space-3); }
+
+  /* Stack the two-pane split vertically */
+  .alpha-split {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .alpha-list-pane {
+    width: 100%;
+    min-width: 0;
+    max-height: 300px;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .alpha-detail-pane {
+    width: 100%;
+    overflow-y: visible;
+  }
+
+  .metric-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .pipeline {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

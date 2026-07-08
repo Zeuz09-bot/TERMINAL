@@ -1,0 +1,82 @@
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+  margin-top: var(--space-4);
+}
+
+.KPI-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-val {
+  font-size: 28px;
+  font-weight: 600;
+  margin: var(--space-4) 0 var(--space-1);
+}
+
+.kpi-sub {
+  font-size: var(--text-xs);
+}
+
+.chart-card {
+  grid-column: span 1;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.wide-chart {
+  grid-column: span 2;
+}
+
+.chart-container {
+  flex: 1;
+  margin-top: var(--space-4);
+  position: relative;
+  min-height: 250px;
+}
+
+.chart-empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: var(--text-sm);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  z-index: 10;
+}
+
+/* Recharts overrides to match design system */
+.recharts-cartesian-grid-horizontal line {
+  stroke: var(--border);
+}
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+.recharts-default-tooltip {
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2) !important;
+}
+
+/* ── Mobile Responsive ──────────────────────────────────────── */
+@media (max-width: 768px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wide-chart,
+  .chart-card {
+    grid-column: span 1;
+  }
+
+  .analytics.module-page {
+    padding: var(--space-3);
+  }
+}
