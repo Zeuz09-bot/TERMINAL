@@ -3,6 +3,7 @@
 // ============================================================
 
 import React from 'react'
+import type { LucideIcon } from 'lucide-react'
 import {
   Flame, Zap, Target, Clock, BookOpen, FlaskConical,
   GraduationCap, CalendarDays, TrendingUp, ChevronRight,
@@ -23,7 +24,7 @@ function StatCard({
   sub,
   color = 'default',
 }: {
-  icon: React.ComponentType<{ size?: number }>
+  icon: LucideIcon
   label: string
   value: string
   sub?: string

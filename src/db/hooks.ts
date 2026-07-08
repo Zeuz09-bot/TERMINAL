@@ -45,7 +45,7 @@ export function useRecentNotes(limit = 5) {
 // Active strategies
 export function useActiveStrategies() {
   return useLiveQuery(async () => {
-    return await db.strategies.where('isActive').equals(1).toArray()
+    return await db.strategies.filter((s) => s.isActive === true).toArray()
   })
 }
 

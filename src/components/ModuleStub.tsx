@@ -3,6 +3,7 @@
 // ============================================================
 
 import React from 'react'
+import type { LucideIcon } from 'lucide-react'
 import { ArrowRight } from 'lucide-react'
 
 interface ModuleStubProps {
@@ -10,7 +11,7 @@ interface ModuleStubProps {
   description: string
   milestone: number
   features: string[]
-  icon: React.ComponentType<{ size?: number }>
+  icon: LucideIcon
 }
 
 export function ModuleStub({ name, description, milestone, features, icon: Icon }: ModuleStubProps) {

@@ -3,6 +3,7 @@
 // ============================================================
 
 import { NavLink, useLocation } from 'react-router-dom'
+import type { LucideIcon } from 'lucide-react'
 import {
   LayoutDashboard, FlaskConical, BookOpen, Beaker,
   Building2, GraduationCap, BookMarked, NotebookPen,
@@ -13,7 +14,7 @@ import { getLevelInfo, formatXP } from '@/engine/xp'
 import { NAV_MODULES } from '@/data/mission'
 import './Sidebar.css'
 
-const ICONS: Record<string, React.ComponentType<{ size?: number }>> = {
+const ICONS: Record<string, LucideIcon> = {
   'dashboard':       LayoutDashboard,
   'alpha-factory':   FlaskConical,
   'research':        BookOpen,

@@ -4,6 +4,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
+import type { LucideIcon } from 'lucide-react'
 import { Search, LayoutDashboard, FlaskConical, BookOpen, Beaker,
          Building2, GraduationCap, BookMarked, NotebookPen,
          CalendarDays, BarChart3, ArrowRight, Zap } from 'lucide-react'
@@ -16,7 +17,7 @@ interface CommandPaletteProps {
   onClose: () => void
 }
 
-const NAV_ICONS: Record<string, React.ComponentType<{ size?: number }>> = {
+const NAV_ICONS: Record<string, LucideIcon> = {
   'dashboard':       LayoutDashboard,
   'alpha-factory':   FlaskConical,
   'research':        BookOpen,
@@ -34,7 +35,7 @@ interface Command {
   label: string
   description?: string
   group: string
-  icon?: React.ComponentType<{ size?: number }>
+  icon?: LucideIcon
   action: () => void
   shortcut?: string
 }
