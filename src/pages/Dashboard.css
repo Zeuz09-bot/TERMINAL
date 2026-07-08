@@ -376,18 +376,6 @@
 }
 
 /* Responsive */
-@media (max-width: 1100px) {
-  .dash-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  .dash-col:last-child {
-    grid-column: span 2;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-  }
-}
-
 @media (max-width: 768px) {
   .dashboard {
     padding: var(--space-3);
@@ -395,10 +383,15 @@
 
   .dash-grid {
     grid-template-columns: 1fr;
+    gap: var(--space-3);
   }
 
   .dash-col {
     gap: var(--space-3);
+    /* override any span behaviour from larger breakpoints */
+    grid-column: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .dash-header {
@@ -421,5 +414,9 @@
 
   .dash-corpus-row {
     gap: var(--space-2);
+  }
+
+  .dash-mission {
+    margin-bottom: var(--space-3);
   }
 }

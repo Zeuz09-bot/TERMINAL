@@ -164,8 +164,8 @@ export function Settings() {
                 <span className="env-val mono muted">{import.meta.env.VITE_SUPABASE_URL ? 'Configured' : 'Missing'}</span>
               </div>
               <div className="env-row">
-                <span className="env-key mono">Supabase Key:</span>
-                <span className="env-val mono muted">{import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ? 'Configured' : 'Missing'}</span>
+                <span className="env-key">VITE_SUPABASE_ANON_KEY</span>
+                <span className="env-val mono muted">{import.meta.env.VITE_SUPABASE_ANON_KEY ? 'Configured' : 'Missing'}</span>
               </div>
             </div>
           </div>
