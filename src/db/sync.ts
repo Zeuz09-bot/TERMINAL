@@ -52,16 +52,17 @@ export const useSyncStore = create<SyncState>((set, get) => ({
                 // is older than the newSyncTime (or equal), we won't push it back if we filter right.
               }
             } else {
-              const localItem = await localTable.where({ uuid: record.uuid }).first()
+              const localItem = await localTable.where('uuid').equals(record.uuid).first()
               
               if (!localItem) {
-                // Insert
-                await localTable.add(record.data)
+                const { id, ...dataWithoutId } = record.data
+                await localTable.add({ ...dataWithoutId, uuid: record.uuid })
               } else {
                 // Update if remote is newer
                 if (record.updated_at > (localItem.updatedAt || '1970')) {
                   // Pass the remote updatedAt so the hook doesn't overwrite it
-                  await localTable.update(localItem.id, { ...record.data, updatedAt: record.updated_at })
+                  const { id, ...dataWithoutId } = record.data
+                  await localTable.update(localItem.id, { ...dataWithoutId, updatedAt: record.updated_at })
                 }
               }
             }

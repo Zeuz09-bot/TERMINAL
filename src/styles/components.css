@@ -2,6 +2,12 @@
    TERMINAL — Shared Component Styles
    ============================================================ */
 
+.module-page {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 /* ── Buttons ─────────────────────────────────────────────── */
 .btn {
   display: inline-flex;
