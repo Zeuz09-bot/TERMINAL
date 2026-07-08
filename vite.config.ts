@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['icon.svg'],
+      includeAssets: ['icon.svg', 'favicon.svg'],
       manifest: {
         name: 'TERMINAL',
         short_name: 'TERMINAL',
@@ -16,6 +16,8 @@ export default defineConfig({
         theme_color: '#0c0c0c',
         background_color: '#0c0c0c',
         display: 'standalone',
+        start_url: '/',
+        scope: '/',
         icons: [
           {
             src: 'icon.svg',
@@ -29,6 +31,16 @@ export default defineConfig({
             purpose: 'any maskable'
           }
         ]
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        cleanupOutdatedCaches: true,
+        skipWaiting: true,
+        clientsClaim: true,
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module',
       }
     })
   ],
